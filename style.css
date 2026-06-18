@@ -241,8 +241,18 @@ strong { font-weight: 700; }
   position: relative;
   overflow: hidden;
   padding-top: calc(var(--nav-h) + 2.5rem);
-  padding-bottom: 5rem;
+  padding-bottom: 3rem;
 }
+
+/* ola de transición hero → sección */
+.hero-wave {
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.hero-wave svg { width: 100%; height: 56px; display: block; }
 
 /* decoración flotante */
 .hero-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
@@ -329,13 +339,6 @@ strong { font-weight: 700; }
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* ola de transición al fondo del hero */
-.hero-wave {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  line-height: 0;
-}
-.hero-wave svg { width: 100%; height: 56px; display: block; }
 
 /* ── Hero entrance animations ─────────────────── */
 .anim-hero {
@@ -1018,6 +1021,46 @@ strong { font-weight: 700; }
   transform: translateX(-50%) translateY(80px);
 }
 
+/* ── Section background images ─────────────────── */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+.section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.sec-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+.sec-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .6;
+}
+
+/* visible al borde izquierdo, se desvanece hacia el centro */
+.sec-bg-left {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 35%, rgba(0,0,0,.2) 75%, transparent 100%);
+          mask-image: linear-gradient(to right, black 0%, black 35%, rgba(0,0,0,.2) 75%, transparent 100%);
+}
+
+/* visible al borde derecho, se desvanece hacia el centro */
+.sec-bg-right {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, black 0%, black 35%, rgba(0,0,0,.2) 75%, transparent 100%);
+          mask-image: linear-gradient(to left, black 0%, black 35%, rgba(0,0,0,.2) 75%, transparent 100%);
+}
+
 /* ── Reduced motion ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .anim-hero, .anim.scroll, .hero-logo, .deco {
@@ -1066,6 +1109,7 @@ strong { font-weight: 700; }
 
 /* < 640px ─ mobile */
 @media (max-width: 639px) {
+  .sec-bg { display: none; }
   .float-btn { display: flex; }
   body { padding-bottom: 5rem; }
 
